@@ -45,7 +45,7 @@
     width:100vw;
     max-width:800px;
 }
-#player, {
+#player {
     border-color: #12375a;
     padding-left: 10px;
     transition: all 1s;
