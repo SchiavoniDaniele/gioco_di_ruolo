@@ -72,7 +72,7 @@ let enemy = {
 }
 
 function startGame() {
-    document.getElementById("name").value = "" ? player.name = document.getElementById("name").value : player.name = "Cavaliere senza nome";
+    document.getElementById("name").value == "" ? player.name = "Cavaliere senza nome" : player.name = document.getElementById("name").value;
     startPlayer();
     startEnemy();
     document.getElementById("introduction").classList.add("hide");
