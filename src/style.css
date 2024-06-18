@@ -47,6 +47,7 @@
     border-color: #12375a;
     padding-left: 10px;
     transition: all 1s;
+    min-height:50vh;
 }
 #enemy {
     border-color: #a0d29e;
@@ -55,6 +56,7 @@
     justify-self:right;
     margin-right:10px;
     margin-left:auto;
+    min-height:50vh;
 }
 
 
@@ -101,13 +103,15 @@
     transform: translate(0%, -400%);
 }
 .show {
-    transform: translate(0%, 0%)!important;
+    transform: translate(0%, 0%);
 }
 .hide_screen {
     transform: translate(-200%, 0%);
 }
-#shop{
+#shop {
     display: flex;
+    height: auto;
+    transform: translate(0%, 20%);
 }
 .shop {
     display: inline-block;
@@ -117,6 +121,7 @@
     margin: 1vw;
     padding-left: 1vw;
     max-width: 40vw;
+
 }
 .battle p {
     background-color: rgba(136,212,195,0.8);
@@ -148,8 +153,10 @@
 
     .shop {
         display: block;
+        width:90%;
     }
     #shop{
+        width:90vw;
         display:block;
         justify-self:center;
     }
