@@ -324,11 +324,16 @@ function getXp() {
 
 function attackUp() {
     //attacco pari al triplo dell'attacco base
-    let temp = player.attack;
-    player.attack *= 3;
-    attack();
-    player.attack = temp;
-    player.attack_potions--;
+    if (player.attack_potions <= 0) {
+        document.getElementById("hit-message").innerText = "Non hai più pozioni!"
+        
+    } else {
+        let temp = player.attack;
+        player.attack *= 3;
+        attack();
+        player.attack = temp;
+        player.attack_potions--;
+    }
     startPlayer();
 
     
@@ -337,13 +342,17 @@ function attackUp() {
 
 function healthUp() {
     //Viene restituito il 15% della salute massima
-    if (player.health === player.max_health) {
-        document.getElementById("hit-message").innerText = "Non puoi curarti più del massimo!"
+    if (player.health_potions <= 0) {
+        document.getElementById("hit-message").innerText = "Non hai più pozioni!"
     } else {
-        player.health += Math.floor(player.max_health * 0.15);
-        player.health_potions--;
-        if (player.health > player.max_health) {
-            player.health = player.max_health;
+        if (player.health === player.max_health) {
+            document.getElementById("hit-message").innerText = "Non puoi curarti più del massimo!"
+        } else {
+            player.health += Math.floor(player.max_health * 0.15);
+            player.health_potions--;
+            if (player.health > player.max_health) {
+                player.health = player.max_health;
+            }
         }
     }
         startPlayer();
