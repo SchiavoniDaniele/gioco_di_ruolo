@@ -71,7 +71,17 @@ let enemy = {
         "il torturatore", "l'invincibile", "il feroce", "il distruttore di mondi", "l'immortale", "il pasticcere", "l'incompreso", "il cartolaio", "il lavapiatti", "il guastafeste"]
 }
 
+function startGame() {
+    document.getElementById("name").value = "" ? player.name = document.getElementById("name").value : player.name = "Cavaliere senza nome";
+    startPlayer();
+    startEnemy();
+    document.getElementById("introduction").classList.add("hide");
+    document.getElementById("introduction").classList.remove("show");
+    document.getElementById("game-screen").classList.add("show");
+    document.getElementById("game-screen").classList.remove("hide_screen");
 
+
+}
 
 
 //cuore del gioco
@@ -105,17 +115,7 @@ function startPlayer() {
 
 }
 
-function startGame() {
-    document.getElementById("name").value =""?player.name = document.getElementById("name").value:player.name="Cavaliere senza nome";
-    startPlayer();
-    startEnemy();
-    document.getElementById("introduction").classList.add("hide");
-    document.getElementById("introduction").classList.remove("show");
-    document.getElementById("game-screen").classList.add("show");
-    document.getElementById("game-screen").classList.remove("hide_screen");
 
-
-}
 
 function startEnemy() { 
     //assegnazione dei valori al nemico
