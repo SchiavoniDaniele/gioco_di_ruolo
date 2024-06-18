@@ -1,5 +1,5 @@
 ﻿//oggetto eroe
-let player = {
+var player = {
     level: 1,
     max_health: 150,
     health: 150,
@@ -7,7 +7,7 @@ let player = {
     attack: 10,
     xp: 0,
     max_xp:50,
-    money: 300,
+    money: 0,
     attack_potions: 3,
     health_potions: 3,
     max_potions:5,
@@ -17,7 +17,7 @@ let player = {
 }
 
 //armi che possono essere comperate nel negozio
-let weapons = [
+var weapons = [
     { name: "Spada di legno", attack: 2, price: 8, durability: 10 },
     { name: "Spada di ferro", attack: 4, price: 12, durability: 14 },
     { name: "Spada di legno rinforzata", attack: 2, price: 14, durability: 18 },
@@ -40,7 +40,7 @@ let weapons = [
     { name: "Fionda dell'Infanzia", attack: 4, price: 3, durability: 50 }
 ];
 //scudi del negozio
-let shields = [
+var shields = [
     { name: "Scudo dell'autodifesa", protection: 5, durability: 10, price: 10 },
     { name: "Scudo alieno", protection: 100, durability: 3, price: 100 },
     { name: "Scudo non newtoniano", protection: 2, durability: 50, price: 28 },
@@ -59,10 +59,10 @@ let shields = [
 ];
 
 
-
+var new_winner;
 
 //oggetto mostro: nome e titolo in una lista, livello, attacco e salute vengono estrapolati dal livello dell'eroe per un'esperienza bilanciata
-let enemy = {
+var enemy = {
     name: ["Gordar ", "Condor ", "Gorgoroth ", "Holtah ", "Giovanni ", "Nascar ", "Marrakith ", "Mariolino ", "Orazio ", "Pluto ",
         "Drakthar ", "Zoran ", "Brakkus ", "Velgor ", "Ignar ", "Thalor ", "Xerxes ", "Ulthor ", "Vorgath ", "Krynn ",
         "Arthas ", "Borath ", "Lazaro ", "Morkai ", "Silas ", "Bubbolo ", "Zucchina ", "Tartaruga ", "Ugo ", "Marshmallow "],
@@ -70,6 +70,7 @@ let enemy = {
         "il devastatore", "l'oscuro", "il sanguinario", "il distruttore", "il vendicatore", "il crudele", "l'impavido", "il conquistatore", "il flagello", "il colossale",
         "il torturatore", "l'invincibile", "il feroce", "il distruttore di mondi", "l'immortale", "il pasticcere", "l'incompreso", "il cartolaio", "il lavapiatti", "il guastafeste"]
 }
+
 
 function startGame() {
     document.getElementById("name").value == null || document.getElementById("name").value == "" ? player.name = "Cavaliere senza nome" : player.name = document.getElementById("name").value;
@@ -171,7 +172,7 @@ function enemyAttack() {//una possibilità su dieci di mancare il bersaglio
         document.getElementById("broken-weapon-message").textContent = "";
         let enemy_attack = parseInt(document.getElementById("enemy-attack").textContent);
         player.defense != 0 ? player.health -= Math.floor(enemy_attack - (enemy_attack * player.defense / 100)) : player.health -= enemy_attack;
-        player.health > 0 ? document.getElementById("hit-message").textContent = "Sei stato colpito! " : playerDeath();
+        player.health > 0 ? document.getElementById("hit-message").textContent = "Sei stato colpito! " : new_winner=playerDeath();
         if (player.shield_durability > 0) {
             player.shield_durability--;
             if (player.shield_durability == 0) {
@@ -196,10 +197,53 @@ function enemyDeath() {
 };
 
 function playerDeath() {
-    document.getElementById("player-health").textContent = 0;
-    document.getElementById("player").setAttribute("hidden", "");
+    //document.getElementById("game-screen").classList.remove("show");
+    //document.getElementById("game-screen").classList.add("hide_screen");
+    new_winner = document.getElementById("enemy-name").textContent;
+    document.getElementById("player").style.opacity = 0;
+    document.getElementById("game-screen").style.backgroundColor = "rgb(138,3,3)";
+    document.getElementById("enemy").classList.add("hide");
+    setTimeout(function () {
+        document.getElementById("game-screen").innerHTML += `<div id=death-screen>
+        <h1>${player.name}, hai combattuto con onore ma il tuo viaggio è terminato.</h1>
+        <p>Il tuo avversario, ${new_winner}, si è macchiato le mani del tuo sangue. Le sue gesta eroiche verranno raccontate tra i mostri suoi amici, ma per poco:
+        lo stesso avversario che oggi, alleato dei mostri, ha terminato la tua vita, sarà domani costretto a competere contro i suoi simili, per soddisfare la sadica sete di morte
+        degli alieni che vi hanno rapito. Capisci solo ora che non eravate nemici, ma alleti separati da un fato avverso.
+        </p>
+        <button class="button" onclick="restart()">Riprova</button>
+        </div>`
+    }, 1000)
+    return new_winner;
+
 
 };
+
+function restart() {
+    player = {
+        name: new_winner,
+        level: 1,
+        max_health: 150,
+        health: 150,
+        defense: 0,
+        attack: 10,
+        xp: 0,
+        max_xp: 50,
+        money: 0,
+        attack_potions: 3,
+        health_potions: 3,
+        max_potions: 5,
+        weapon_durability: 0,
+        extra_attack: 0,
+        shield_durability: 0
+    }
+    document.getElementById("death-screen").innerHTML = "";
+    document.getElementById("player").style.opacity = 1;
+    document.getElementById("game-screen").style.backgroundColor = "none";
+    document.getElementById("enemy").classList.remove("hide");
+    document.getElementById("game-screen").style.backgroundColor = "rgba(255,255,255,0.6)";
+    startPlayer();
+    startEnemy();
+}
 
 function getLoot() {
 //una possibilità su tre di ottenere soldi, una su tre di ottenere pozioni di attacco e una su tre di ottenere pozioni di salute
