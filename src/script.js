@@ -37,7 +37,19 @@ var weapons = [
     { name: "Martello del Destino", attack: 20, price: 40, durability: 22 },
     { name: "Arco Incantato", attack: 15, price: 28, durability: 18 },
     { name: "Cucchiaio da Minestrone", attack: 3, price: 5, durability: 40 },
-    { name: "Fionda dell'Infanzia", attack: 4, price: 3, durability: 50 }
+    { name: "Fionda dell'Infanzia", attack: 4, price: 3, durability: 50 },
+    { name: "Spada del Dominatore", "attack": 75, "price": 1000, "durability": 166 },
+    { name: "Ascia del Tiranno", "attack": 80, "price": 1050, "durability": 160 },
+    { name: "Lancia del Sovrano", "attack": 70, "price": 975, "durability": 173 },
+    { name: "Martello del Re", "attack": 85, "price": 1100, "durability": 153 },
+    { name: "Pugnale del Signore", "attack": 65, "price": 950, "durability": 180 },
+    { name: "Arco del Condottiero", "attack": 73, "price": 1000, "durability": 170 },
+    { name: "Bastone dell'Imperatore", "attack": 78, "price": 1025, "durability": 165 },
+    { name: "Falcione dell'Assalitore", "attack": 83, "price": 1075, "durability": 156 },
+    { name: "Mazza del Conquistatore", "attack": 88, "price": 1125, "durability": 150 },
+    { name: "Frusta del Dominio", "attack": 68, "price": 975, "durability": 176 },
+    { name: "Spada della Marmotta", "attack": 75, "price": 1000, "durability": 166 },
+    { name: "Ascia del Bucaniere", "attack": 80, "price": 1050, "durability": 160 }
 ];
 //scudi del negozio
 var shields = [
@@ -55,7 +67,19 @@ var shields = [
     { name: "Scudo del Cavaliere", protection: 14, durability: 18, price: 25 },
     { name: "Scudo della Giustizia", protection: 20, durability: 20, price: 35 },
     { name: "Scudo dell'Orso", protection: 16, durability: 22, price: 32 },
-    { name: "Scudo di Pietra", protection: 12, durability: 28, price: 15 }
+    { name: "Scudo di Pietra", protection: 12, durability: 28, price: 15 },
+    { name: "Scudo della Fortezza", "protection": 60, "durability": 135, "price": 950 },
+    { name: "Scudo del Guerriero", "protection": 63, "durability": 140, "price": 975 },
+    { name: "Scudo del Paladino", "protection": 65, "durability": 145, "price": 1000 },
+    { name: "Scudo del Difensore", "protection": 68, "durability": 150, "price": 1025 },
+    { name: "Scudo del Protettore", "protection": 70, "durability": 155, "price": 1050 },
+    { name: "Scudo dell'Imperatore", "protection": 73, "durability": 160, "price": 1075 },
+    { name: "Scudo del Guardiano", "protection": 75, "durability": 165, "price": 1100 },
+    { name: "Scudo dell'Eroe", "protection": 78, "durability": 170, "price": 1125 },
+    { name: "Scudo del Campione", "protection": 80, "durability": 175, "price": 1150 },
+    { name: "Scudo dell'Invincibile", "protection": 83, "durability": 180, "price": 1175 },
+    { name: "Scudo della Tartaruga", "protection": 60, "durability": 135, "price": 950 },
+    { name: "Scudo del Gatto", "protection": 63, "durability": 140, "price": 975 }
 ];
 
 
