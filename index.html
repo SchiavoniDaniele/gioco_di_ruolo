@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Daniele Schiavoni">
+    <link rel="stylesheet" href="src/style.css" />
+    <title>Knights & Aliens</title>
+</head>
+<body>
+    <div id="introduction" class="show">
+        <h1>Benvenuto, cavaliere</h1>
+        <p>
+            Hai dedicato la tua vita alla giustizia e alla protezione del tuo regno, ispirando speranza nei cuori della gente. Ma una notte, un bagliore accecante ti rapisce dal tuo mondo, portandoti su una nave spaziale aliena.
+            Sei prigioniero di esseri provenienti da lontane galassie, che ti osservano con occhi freddi. Hanno rapito te e numerosi mostri per creare un'arena brutale dove combatterai fino all'ultimo respiro per il loro divertimento. Non c'è via di fuga, solo sopravvivenza.
+            Armato della tua spada e del tuo coraggio, dovrai affrontare sfide inimmaginabili. Ogni passo nell'arena sarà un test delle tue abilità, ogni combattimento una lotta per la vita. Sei un cavaliere, forgiato dal dovere e dalla speranza.
+            L'arena ti aspetta. Combatti, sopravvivi, trionfa.
+        </p>
+        <label for="name">Qual è il tuo nome?</label>
+        <input type="text" id="name" />
+        <button class="button" onclick="startGame()">Inizia a combattere!</button>
+    </div>
+
+    <div id="game-screen" class="hide">
+        <div class="battle" id="player">
+            <h1 id="player-name"></h1>
+            <p>Livello: <span id="player-level"></span></p>
+            <p>Salute: <span id="player-health"></span></p>
+            <p>Attacco: <span id="player-attack"></span></p>
+            <p>Punti esperienza: <span id="player-xp"></span></p>
+            <p>Soldi: <span id="player-money"></span></p>
+            <p id="weapon-durability"></p>
+            <p id="shield-durability"></p>
+            <button class="potion button" onclick="attackUp()">Pozioni d'attacco: <span id="player-attack-potion"></span></button> <br />
+            <button class="potion button" onclick="healthUp()">Pozioni di salute: <span id="player-health-potion"></span></button> <br />
+            <hr />
+            <button class="button" onclick="attack()">Attacca</button>
+            <button class="button" onclick="shop()">Negozio</button>
+        </div>
+
+
+        <div class="battle" id="enemy">
+            <h1 id="enemy-name"></h1>
+            <p>Livello: <span id="enemy-level"></span></p>
+            <p>Salute: <span id="enemy-health"></span></p>
+            <p>Attacco: <span id="enemy-attack"></span></p>
+            <p id="hit-message"></p>
+            <p id="miss-message"></p>
+            <p id=loot-message></p>
+            <p id="level-up-message"></p>
+        </div>
+    </div>
+    
+    <!--Negozio-->
+    <div id="container_shop" class="hide">
+        <div id="shop">
+            <p id="shop_message"></p>
+            <div id="weapon1" class="shop weapon">
+                <h4>Nome: <span id="w1_name"></span></h4>
+                <p>Attacco: <span id="w1_attack"></span></p>
+                <p>Resistenza: <span id="w1_durability"></span></p>
+                <p>Prezzo: <span id="w1_price"></span> monete</p>
+                <button class="button" onclick="buyWeapon1()">Compra</button>
+            </div>
+            <hr />
+            <div id="weapon2" class="shop weapon">
+                <h4>Nome: <span id="w2_name"></span></h4>
+                <p>Attacco: <span id="w2_attack"></span></p>
+                <p>Resistenza: <span id="w2_durability"></span></p>
+                <p>Prezzo: <span id="w2_price"></span> monete</p>
+                <button class="button" onclick="buyWeapon2()">Compra</button>
+            </div>
+            <hr />
+            <div id="shield" class="shop shield">
+                <h4>Nome: <span id="shield_name"></span></h4>
+                <p>Difesa: <span id="shield_protection"></span></p>
+                <p>Resistenza: <span id="shield_durability"></span></p>
+                <p>Prezzo: <span id="shield_price"></span> monete</p>
+                <button class="button" onclick="buyShield()">Compra</button>
+            </div>
+        </div>
+        <h3>Soldi: <span id="money_shop"></span> monete</h3>
+        <button class="button" onclick="closeShop()">Esci dal negozio</button>
+    </div>
+    
+    <script src="src/script.js"></script>
+</body>
+</html>
