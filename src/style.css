@@ -122,6 +122,7 @@
     margin: 1vw;
     padding-left: 1vw;
     max-width: 40vw;
+    transition:all 0.4s ease-in;
 
 }
 .battle p {
@@ -136,6 +137,9 @@
 #level-up-message,#loot-message{
     color:gold;
     text-shadow:2px 2px black;
+}
+.bought{
+    background-color:pink;
 }
 
 

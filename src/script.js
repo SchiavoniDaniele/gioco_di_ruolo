@@ -81,7 +81,7 @@ function startPlayer() {
 }
 
 function startGame() {
-    player.name = document.getElementById("name").value;
+    document.getElementById("name").value =""?player.name = document.getElementById("name").value:player.name="Cavaliere senza nome";
     startPlayer();
     startEnemy();
     document.getElementById("introduction").classList.add("hide");
@@ -308,6 +308,9 @@ function closeShop() {
     document.getElementById("container_shop").classList.add("hide");
     document.getElementById("container_shop").classList.remove("show");
     document.getElementById("shop_message").textContent = "";
+    document.getElementById("weapon1").classList.remove("bought");
+    document.getElementById("weapon2").classList.remove("bought");
+    document.getElementById("shield").classList.remove("bought");
 }
 
 function buyWeapon1() {
@@ -317,6 +320,8 @@ function buyWeapon1() {
         player.weapon_durability = parseInt(document.getElementById("w1_durability").textContent);
         player.money -= parseInt(document.getElementById("w1_price").textContent);
         document.getElementById("money_shop").textContent = player.money;
+        document.getElementById("weapon1").classList.add("bought");
+        document.getElementById("weapon2").classList.remove("bought");
         startPlayer();
     } else {
         document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
@@ -332,6 +337,8 @@ function buyWeapon2() {
         player.weapon_durability = parseInt(document.getElementById("w2_durability").textContent);
         player.money -= parseInt(document.getElementById("w2_price").textContent);
         document.getElementById("money_shop").textContent = player.money;
+        document.getElementById("weapon2").classList.add("bought");
+        document.getElementById("weapon1").classList.remove("bought");
         startPlayer();
     } else {
         document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
@@ -346,6 +353,7 @@ function buyShield() {
         player.shield_durability = parseInt(document.getElementById("shield_durability").textContent);
         player.money -= parseInt(document.getElementById("shield_price").textContent);
         document.getElementById("money_shop").textContent = player.money;
+        document.getElementById("shield").classList.add("bought");
         startPlayer();
     } else {
         document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
