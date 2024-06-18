@@ -7,9 +7,10 @@ let player = {
     attack: 10,
     xp: 0,
     max_xp:50,
-    money: 0,
+    money: 300,
     attack_potions: 3,
     health_potions: 3,
+    max_potions:5,
     weapon_durability:0,
     extra_attack: 0,
     shield_durability:0
@@ -57,8 +58,8 @@ function startPlayer() {
     document.getElementById("player-attack").textContent = player.attack + player.extra_attack;
     document.getElementById("player-xp").textContent = player.xp + "/" + player.max_xp;
     document.getElementById("player-money").textContent = player.money;
-    document.getElementById("player-attack-potion").textContent = player.attack_potions;
-    document.getElementById("player-health-potion").textContent = player.health_potions;
+    document.getElementById("player-attack-potion").textContent = player.attack_potions + "/" + player.max_potions;
+    document.getElementById("player-health-potion").textContent = player.health_potions + "/" + player.max_potions;
     if (player.shield_durability != 0) {//Per mettere su schermo la resistenza di arma e scudo solo se sono disponibili
         document.getElementById("shield-durability").textContent = "Resistenza scudo: " + player.shield_durability;
     } else {
@@ -71,10 +72,10 @@ function startPlayer() {
     }
     if (player.health < (player.max_health / 3)) {
         document.getElementById("player-health").style.color = "red";
-        document.getElementById("player").style.backgroundColor="rgba(138,3,3,0.7)"
+        document.getElementById("player").style.backgroundColor = "rgba(138,3,3,0.7)";
     } else {
         document.getElementById("player-health").style.color = "black";
-        document.getElementById("player").style.backgroundColor ="none"
+        document.getElementById("player").style.backgroundColor = "rgba(138,3,3,0)";
     }
 
 }
@@ -101,6 +102,7 @@ function startEnemy() {
     document.getElementById("miss-message").textContent = "";
     document.getElementById("loot-message").textContent = "";
     document.getElementById("level-up-message").textContent = "";
+    document.getElementById("broken-weapon-message").textContent = "";
     
 };
 
@@ -114,12 +116,13 @@ function attack() {
             document.getElementById("hit-message").textContent = "";
             document.getElementById("miss-message").textContent = "";
             document.getElementById("loot-message").textContent = "";
+            document.getElementById("broken-weapon-message").textContent = "";
             let enemy_health = parseInt(document.getElementById("enemy-health").textContent);
             enemy_health -= player.attack + player.extra_attack;
             if (player.weapon_durability > 0) {
                 player.weapon_durability--;
                 if (player.weapon_durability == 0) {
-                    document.getElementById("loot-message").textContent = "La tua arma si è rotta!"
+                    document.getElementById("broken-weapon-message").textContent = "La tua arma si è rotta!"
                     player.extra_attack = 0;
                 }
             }
@@ -140,6 +143,7 @@ function enemyAttack() {//una possibilità su dieci di mancare il bersaglio
         document.getElementById("hit-message").textContent = "";
         document.getElementById("miss-message").textContent = "";
         document.getElementById("loot-message").textContent = "";
+        document.getElementById("broken-weapon-message").textContent = "";
         let enemy_attack = parseInt(document.getElementById("enemy-attack").textContent);
         player.defense != 0 ? player.health -= Math.floor(enemy_attack - (enemy_attack * player.defense / 100)) : player.health -= enemy_attack;
         player.health > 0 ? document.getElementById("hit-message").textContent = "Sei stato colpito! " : playerDeath();
@@ -176,24 +180,41 @@ function getLoot() {
 //una possibilità su tre di ottenere soldi, una su tre di ottenere pozioni di attacco e una su tre di ottenere pozioni di salute
     let random = Math.floor(Math.random() * 4);
     let potions = Math.floor(Math.random() * (4 * player.level) + 1);
+    let money = Math.floor(Math.random() * (10 * (player.level * 2)) + 1);
     if (potions > (player.level + 7)) {//Per evitare che, andando avanti nel gioco, si ottengano troppe pozioni
         potions = (player.level + 7);
     }
     switch (random) {
         case 0:
-            
+            loot = "Hai ottenuto " + money + " monete e ";
+            player.money += money;
+            break;
         case 1:
-            let money = Math.floor(Math.random() * (10 * (player.level * 2)) + 1);
             loot = "Hai ottenuto " + money + " monete e ";
             player.money += money;
             break;
         case 2:
-            loot = "Hai ottenuto " + potions + " pozioni d'attacco e ";
-            player.attack_potions += potions;
+            
+            if ((player.attack_potions+potions) > player.max_potions) {
+                loot="La tua sacca delle pozioni d'attacco è piena! Hai ottenuto "
+                player.attack_potions = player.max_potions;
+            } else {
+                player.attack_potions += potions;
+                loot = "Hai ottenuto " + potions + " pozioni d'attacco e ";
+                
+            }
             break;
         default:
-            loot = "Hai ottenuto " + potions + " pozioni di salute e ";
-            player.health_potions += potions;
+            
+            if ((player.health_potions+potions) > player.max_potions) {
+                loot = "La tua sacca delle pozioni di salute è piena! Hai ottenuto "
+                player.health_potions = player.max_potions;
+            } else {
+                player.health_potions += potions;
+                loot = "Hai ottenuto " + potions + " pozioni di salute e ";
+                
+            }
+            
     }
     return loot;
     
@@ -210,12 +231,16 @@ function getXp() {
 
 function attackUp() {
     //attacco pari al triplo dell'attacco base
-    let enemy_health = parseInt(document.getElementById("enemy-health").textContent);
-    enemy_health -= (player.attack + player.extra_attack) * 3;
-    player.attack_potions--;
+    let temp = player.attack;
+    player.attack *= 3;
+    attack();
+    player.attack = temp;
+    //let enemy_health = parseInt(document.getElementById("enemy-health").textContent);
+    //enemy_health -= (player.attack + player.extra_attack) * 3;
+    //player.attack_potions--;
     startPlayer();
-    document.getElementById("enemy-health").textContent = enemy_health;
-    enemy_health > 0 ? enemyAttack() : enemyDeath();
+    //document.getElementById("enemy-health").textContent = enemy_health;
+    //enemy_health > 0 ? enemyAttack() : enemyDeath();
     
     
 }
@@ -237,6 +262,7 @@ function healthUp() {
 
 function levelUp() {
     player.level++;
+    player.max_potions++;
     player.xp = 0;
     player.max_xp = Math.floor(player.max_xp * 1.6);
     player.max_health = Math.floor(player.max_health * 1.2);

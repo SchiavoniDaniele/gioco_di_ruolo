@@ -127,7 +127,7 @@
 .battle p {
     background-color: rgba(136,212,195,0.8);
 }
-#hit-message{
+#hit-message,#broken-weapon-message{
     color:red;
 }
 #miss-message{
