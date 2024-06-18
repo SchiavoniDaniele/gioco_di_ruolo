@@ -20,32 +20,57 @@ let player = {
 let weapons = [
     { name: "Spada di legno", attack: 2, price: 8, durability: 10 },
     { name: "Spada di ferro", attack: 4, price: 12, durability: 14 },
-    { name: "Spada di legno rinforzata", attack: 2, price: 14, durability: 18},
+    { name: "Spada di legno rinforzata", attack: 2, price: 14, durability: 18 },
     { name: "Spada di diamante", attack: 15, price: 70, durability: 25 },
     { name: "Lancia a corto raggio", attack: 6, price: 10, durability: 16 },
-    { name: "Lancia a lungo raggio", attack: 8, price: 14, durability: 16},
+    { name: "Lancia a lungo raggio", attack: 8, price: 14, durability: 16 },
     { name: "Alabarda", attack: 16, price: 20, durability: 14 },
     { name: "Pistola aliena", attack: 60, price: 100, durability: 1 },
     { name: "Pugnale divino", attack: 25, price: 130, durability: 35 },
-    { name: "Guanto del Pugno Fortissimo", attack: 8, price: 25, durability: 30 }
-]
-
+    { name: "Guanto del Pugno Fortissimo", attack: 8, price: 25, durability: 30 },
+    { name: "Ascia del Terrore", attack: 18, price: 35, durability: 20 },
+    { name: "Mazza Chiodata", attack: 12, price: 18, durability: 25 },
+    { name: "Spada del Drago", attack: 22, price: 80, durability: 30 },
+    { name: "Scettro Magico", attack: 30, price: 90, durability: 15 },
+    { name: "Frusta Fiammeggiante", attack: 10, price: 22, durability: 20 },
+    { name: "Bastone della Saggezza", attack: 6, price: 12, durability: 50 },
+    { name: "Martello del Destino", attack: 20, price: 40, durability: 22 },
+    { name: "Arco Incantato", attack: 15, price: 28, durability: 18 },
+    { name: "Cucchiaio da Minestrone", attack: 3, price: 5, durability: 40 },
+    { name: "Fionda dell'Infanzia", attack: 4, price: 3, durability: 50 }
+];
 //scudi del negozio
 let shields = [
-    { name: "Scudo dell'autodifesa", protection: 5, durability: 10, price:10 },
-    { name: "Scudo alieno", protection: 100, durability: 3, price:100 },
-    { name: "Scudo non newtoniano", protection: 2, durability: 50, price: 28},
+    { name: "Scudo dell'autodifesa", protection: 5, durability: 10, price: 10 },
+    { name: "Scudo alieno", protection: 100, durability: 3, price: 100 },
+    { name: "Scudo non newtoniano", protection: 2, durability: 50, price: 28 },
     { name: "Scudo di ferro", protection: 10, durability: 15, price: 15 },
-    { name: "Scudo massiccio", protection: 12, durability: 17, price:20 },
-]
+    { name: "Scudo massiccio", protection: 12, durability: 17, price: 20 },
+    { name: "Scudo di Cristallo", protection: 15, durability: 20, price: 30 },
+    { name: "Scudo Magico", protection: 20, durability: 10, price: 50 },
+    { name: "Scudo del Vento", protection: 8, durability: 25, price: 22 },
+    { name: "Scudo del Tempo", protection: 18, durability: 12, price: 40 },
+    { name: "Scudo di Cartone", protection: 1, durability: 5, price: 2 },
+    { name: "Scudo della Nonna", protection: 4, durability: 30, price: 10 },
+    { name: "Scudo del Cavaliere", protection: 14, durability: 18, price: 25 },
+    { name: "Scudo della Giustizia", protection: 20, durability: 20, price: 35 },
+    { name: "Scudo dell'Orso", protection: 16, durability: 22, price: 32 },
+    { name: "Scudo di Pietra", protection: 12, durability: 28, price: 15 }
+];
+
 
 
 
 //oggetto mostro: nome e titolo in una lista, livello, attacco e salute vengono estrapolati dal livello dell'eroe per un'esperienza bilanciata
 let enemy = {
-    name: ["Gordar ", "Condor ", "Gorgoroth ", "Holtah ", "Giovanni ", "Nascar ", "Marrakith ", "Mariolino ", "Orazio ", "Pluto "],
-    title: ["il terribile", "la furia", "l'aneurisma cerebrale", "l'iroso", "il rancoroso", "il re dei re", "figlio di Mouskrat", "il sorcio", "figlio di Gigi", "il panettiere"],
+    name: ["Gordar ", "Condor ", "Gorgoroth ", "Holtah ", "Giovanni ", "Nascar ", "Marrakith ", "Mariolino ", "Orazio ", "Pluto ",
+        "Drakthar ", "Zoran ", "Brakkus ", "Velgor ", "Ignar ", "Thalor ", "Xerxes ", "Ulthor ", "Vorgath ", "Krynn ",
+        "Arthas ", "Borath ", "Lazaro ", "Morkai ", "Silas ", "Bubbolo ", "Zucchina ", "Tartaruga ", "Ugo ", "Marshmallow "],
+    title: ["il terribile", "la furia", "l'aneurisma cerebrale", "l'iroso", "il rancoroso", "il re dei re", "figlio di Mouskrat", "il sorcio", "figlio di Gigi", "il panettiere",
+        "il devastatore", "l'oscuro", "il sanguinario", "il distruttore", "il vendicatore", "il crudele", "l'impavido", "il conquistatore", "il flagello", "il colossale",
+        "il torturatore", "l'invincibile", "il feroce", "il distruttore di mondi", "l'immortale", "il pasticcere", "l'incompreso", "il cartolaio", "il lavapiatti", "il guastafeste"]
 }
+
 
 
 
@@ -235,12 +260,9 @@ function attackUp() {
     player.attack *= 3;
     attack();
     player.attack = temp;
-    //let enemy_health = parseInt(document.getElementById("enemy-health").textContent);
-    //enemy_health -= (player.attack + player.extra_attack) * 3;
-    //player.attack_potions--;
+    player.attack_potions--;
     startPlayer();
-    //document.getElementById("enemy-health").textContent = enemy_health;
-    //enemy_health > 0 ? enemyAttack() : enemyDeath();
+
     
     
 }
