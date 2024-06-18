@@ -79,6 +79,7 @@
     transition: all 0.5s ease-in;
 }
 #container_shop {
+    height:auto;
     display: inline-block;
     flex-direction:column;
     border: solid 1px black;
@@ -111,7 +112,7 @@
 #shop {
     display: flex;
     height: auto;
-    transform: translate(0%, 20%);
+    transform: translate(0%, 0%);
 }
 .shop {
     display: inline-block;
@@ -141,23 +142,34 @@
 @media screen and (max-width:760px) {
     #game-screen {
         display: block;
+        position:absolute;
         width: 100%;
+        height:auto;
+        top:1vw;
     }
 
     #player, #enemy {
         text-align: center;
         justify-self: center;
-        margin: 1vw;
+        margin: 3vw 1vw 0.5vw 1vw;
         width: 90%;
+        height:33%
     }
-
+    #shop {
+        display: flex;
+        flex-direction: column;
+        margin:0 auto 0 auto;
+    }
     .shop {
-        display: block;
-        width:90%;
+        width:100%;
     }
-    #shop{
-        width:90vw;
-        display:block;
-        justify-self:center;
+    #container_shop {
+        display: flex;
+        position:absolute;
+        flex-direction:column;
+        width: 90vw;
+        height: auto;
+        justify-self: center;
+        top: 1vw;
     }
 }
