@@ -104,7 +104,6 @@ function startGame() {
     startEnemy();
     document.getElementById("introduction").classList.add("hide");
     document.getElementById("introduction").classList.remove("show");
-    document.getElementById("introduction").style.display = "none";
     document.getElementById("game-screen").classList.add("show");
     document.getElementById("game-screen").classList.remove("hide_screen");
 
@@ -369,10 +368,8 @@ function shop() {
     //Lo schermo di gioco si sposta a destra e quello del negozio entra dall'alto
     document.getElementById("game-screen").classList.add("hide_screen");
     document.getElementById("game-screen").classList.remove("show");
-    document.getElementById("game-screen").style.display = "none";
     document.getElementById("container_shop").classList.add("show");
     document.getElementById("container_shop").classList.remove("hide");
-    document.getElementById("container_shop").style.display = "inherit";
 
     //Generazione di armi e scudi andando a pescare casualmnete dalle relative liste
     let weapon1 = weapons[Math.floor(Math.random() * weapons.length)];
@@ -399,10 +396,8 @@ function shop() {
 function closeShop() {
     document.getElementById("game-screen").classList.add("show");
     document.getElementById("game-screen").classList.remove("hide_screen");
-    document.getElementById("game-screen").style.display = "inherit";
     document.getElementById("container_shop").classList.add("hide");
     document.getElementById("container_shop").classList.remove("show");
-    document.getElementById("container_shop").style.display = "none";
     document.getElementById("shop_message").textContent = "";
     document.getElementById("weapon1").classList.remove("bought");
     document.getElementById("weapon2").classList.remove("bought");
