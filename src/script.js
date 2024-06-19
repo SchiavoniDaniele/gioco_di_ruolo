@@ -37,7 +37,7 @@ var weapons = [
     { name: "Martello del Destino", attack: 20, price: 40, durability: 22 },
     { name: "Arco Incantato", attack: 15, price: 28, durability: 18 },
     { name: "Cucchiaio da Minestrone", attack: 3, price: 5, durability: 40 },
-    { name: "Fionda dell'Infanzia", attack: 4, price: 3, durability: 50 },
+    { name: "Fionda di legno", attack: 4, price: 3, durability: 50 },
     { name: "Spada del Dominatore", "attack": 75, "price": 1000, "durability": 166 },
     { name: "Ascia del Tiranno", "attack": 80, "price": 1050, "durability": 160 },
     { name: "Lancia del Sovrano", "attack": 70, "price": 975, "durability": 173 },
@@ -82,7 +82,7 @@ var shields = [
     { name: "Scudo del Gatto", "protection": 63, "durability": 140, "price": 975 }
 ];
 
-
+//variabile globale che contiene il nome del mostro che uccide il protagonista
 var new_winner;
 
 //oggetto mostro: nome e titolo in una lista, livello, attacco e salute vengono estrapolati dal livello dell'eroe per un'esperienza bilanciata
@@ -97,6 +97,7 @@ var enemy = {
 
 
 function startGame() {
+//Se non viene scelto il nome, viene assegnato "Cavaliere senza nome"
     document.getElementById("name").value == null || document.getElementById("name").value == "" ? player.name = "Cavaliere senza nome" : player.name = document.getElementById("name").value;
     startPlayer();
     startEnemy();
@@ -120,7 +121,7 @@ function startPlayer() {
     document.getElementById("player-money").textContent = player.money;
     document.getElementById("player-attack-potion").textContent = player.attack_potions + "/" + player.max_potions;
     document.getElementById("player-health-potion").textContent = player.health_potions + "/" + player.max_potions;
-    if (player.shield_durability != 0) {//Per mettere su schermo la resistenza di arma e scudo solo se sono disponibili
+    if (player.shield_durability != 0) {//La resistenza di arma e scudo solo se equipaggiati
         document.getElementById("shield-durability").textContent = "Resistenza scudo: " + player.shield_durability;
     } else {
         document.getElementById("shield-durability").textContent = "";
@@ -130,6 +131,7 @@ function startPlayer() {
     } else {
         document.getElementById("weapon-durability").textContent = "";
     }
+//Quando la vita dell'eroe è sotto un terzo della salute massima lo schermo diventa rosso
     if (player.health < (player.max_health / 3)) {
         document.getElementById("player-health").style.color = "red";
         document.getElementById("player").style.backgroundColor = "rgba(138,3,3,0.7)";
@@ -144,15 +146,12 @@ function startPlayer() {
 
 function startEnemy() { 
     //assegnazione dei valori al nemico
+    document.getElementById("enemy").classList.remove("hide")
     document.getElementById("enemy-name").textContent = enemy.name[Math.floor(Math.random() * enemy.name.length)] + enemy.title[Math.floor(Math.random() * enemy.title.length)];
     document.getElementById("enemy-level").textContent = Math.floor(Math.random() * parseInt(player.level) + player.level/3+1)
     document.getElementById("enemy-health").textContent = Math.floor(Math.random() * parseInt(document.getElementById("enemy-level").textContent * 20) + (player.level * 5));
     document.getElementById("enemy-attack").textContent = Math.floor(Math.random() * parseInt(document.getElementById("enemy-level").textContent * 5) + (player.level * 5));
-    document.getElementById("hit-message").textContent = "";
-    document.getElementById("miss-message").textContent = "";
-    document.getElementById("loot-message").textContent = "";
-    document.getElementById("level-up-message").textContent = "";
-    document.getElementById("broken-weapon-message").textContent = "";
+    clearMessages();
     
 };
 
@@ -161,12 +160,12 @@ function attack() {
     if (parseInt(document.getElementById("enemy-health").textContent) <= 0) {
         document.getElementById("hit-message").textContent = "Non infierire sul cadavere!"
     } else {
-        if (Math.floor(Math.random() * 10) < 9) {//una possibilità su dieci di mancare il bersaglio
+        if (Math.floor(Math.random() * 10) >= 9) {//una possibilità su dieci di mancare il bersaglio
             //ad ogni attacco il valore della salute viene estrapolato dalla scheda per non intaccare quello nell'array
-            document.getElementById("hit-message").textContent = "";
-            document.getElementById("miss-message").textContent = "";
-            document.getElementById("loot-message").textContent = "";
-            document.getElementById("broken-weapon-message").textContent = "";
+            enemyAttack()
+            document.getElementById("miss-message").textContent = "Bersaglio mancato!"
+        } else {
+            clearMessages()
             let enemy_health = parseInt(document.getElementById("enemy-health").textContent);
             enemy_health -= player.attack + player.extra_attack;
             if (player.weapon_durability > 0) {
@@ -177,10 +176,7 @@ function attack() {
                 }
             }
             document.getElementById("enemy-health").textContent = enemy_health;
-            enemy_health > 0 ? enemyAttack() : enemyDeath();
-        } else {
-            enemyAttack()
-            document.getElementById("miss-message").textContent = "Bersaglio mancato!"
+            enemy_health > 0 ? enemyAttack() : enemyDeath(); 
 
         }
     }
@@ -189,14 +185,13 @@ function attack() {
 };
 
 function enemyAttack() {//una possibilità su dieci di mancare il bersaglio
-    if (Math.floor(Math.random() * 10) < 9) {
-        document.getElementById("hit-message").textContent = "";
-        document.getElementById("miss-message").textContent = "";
-        document.getElementById("loot-message").textContent = "";
-        document.getElementById("broken-weapon-message").textContent = "";
+    if (Math.floor(Math.random() * 10) >= 9) {
+        document.getElementById("miss-message").textContent += "Sei stato mancato!"  
+    } else {
+        clearMessages()
         let enemy_attack = parseInt(document.getElementById("enemy-attack").textContent);
         player.defense != 0 ? player.health -= Math.floor(enemy_attack - (enemy_attack * player.defense / 100)) : player.health -= enemy_attack;
-        player.health > 0 ? document.getElementById("hit-message").textContent = "Sei stato colpito! " : new_winner=playerDeath();
+        player.health > 0 ? document.getElementById("hit-message").textContent = "Sei stato colpito! " : new_winner = playerDeath();
         if (player.shield_durability > 0) {
             player.shield_durability--;
             if (player.shield_durability == 0) {
@@ -205,10 +200,7 @@ function enemyAttack() {//una possibilità su dieci di mancare il bersaglio
             }
         }
         startPlayer();
-    } else {
-        document.getElementById("miss-message").textContent += "Sei stato mancato!"
     }
-
 };
 
 function enemyDeath() {
@@ -217,18 +209,18 @@ function enemyDeath() {
     let loot = getLoot();
     let xp = getXp();
     document.getElementById("loot-message").textContent = loot + xp;
-    setTimeout(startEnemy, 3000);
+    setTimeout(function () { document.getElementById("enemy").classList.add("hide") }, 800);
+    setTimeout(startEnemy, 1600);
 };
 
 function playerDeath() {
-    //document.getElementById("game-screen").classList.remove("show");
-    //document.getElementById("game-screen").classList.add("hide_screen");
     new_winner = document.getElementById("enemy-name").textContent;
-    document.getElementById("player").style.opacity = 0;
+    document.getElementById("player").style.display = "none";
     document.getElementById("game-screen").style.backgroundColor = "rgb(138,3,3)";
     document.getElementById("enemy").classList.add("hide");
+    document.getElementById("enemy").style.display = "none";
     setTimeout(function () {
-        document.getElementById("game-screen").innerHTML += `<div id=death-screen>
+        document.getElementById("game-screen").innerHTML += `<div id="death-screen">
         <h1>${player.name}, hai combattuto con onore ma il tuo viaggio è terminato.</h1>
         <p>Il tuo avversario, ${new_winner}, si è macchiato le mani del tuo sangue. Le sue gesta eroiche verranno raccontate tra i mostri suoi amici, ma per poco:
         lo stesso avversario che oggi, alleato dei mostri, ha terminato la tua vita, sarà domani costretto a competere contro i suoi simili, per soddisfare la sadica sete di morte
@@ -261,27 +253,24 @@ function restart() {
         shield_durability: 0
     }
     document.getElementById("death-screen").innerHTML = "";
-    document.getElementById("player").style.opacity = 1;
+    document.getElementById("player").style.display = "inherit";
+    document.getElementById("enemy").style.display = "inherit";
     document.getElementById("game-screen").style.backgroundColor = "none";
-    document.getElementById("enemy").classList.remove("hide");
     document.getElementById("game-screen").style.backgroundColor = "rgba(255,255,255,0.6)";
     startPlayer();
     startEnemy();
 }
 
 function getLoot() {
-//una possibilità su tre di ottenere soldi, una su tre di ottenere pozioni di attacco e una su tre di ottenere pozioni di salute
+//una possibilità su due di ottenere soldi, una su quattro di ottenere pozioni di attacco e una su quattro di ottenere pozioni di salute
     let random = Math.floor(Math.random() * 4);
     let potions = Math.floor(Math.random() * (4 * player.level) + 1);
     let money = Math.floor(Math.random() * (10 * (player.level * 2)) + 1);
-    if (potions > (player.level + 7)) {//Per evitare che, andando avanti nel gioco, si ottengano troppe pozioni
-        potions = (player.level + 7);
-    }
+    //if (potions > (player.level + 7)) {//Per evitare che, andando avanti nel gioco, si ottengano troppe pozioni
+    //    potions = (player.level + 7);
+    //}
     switch (random) {
         case 0:
-            loot = "Hai ottenuto " + money + " monete e ";
-            player.money += money;
-            break;
         case 1:
             loot = "Hai ottenuto " + money + " monete e ";
             player.money += money;
@@ -323,13 +312,13 @@ function getXp() {
 }
 
 function attackUp() {
-    //attacco pari al triplo dell'attacco base
+    //40 punti extra all'attacco base
     if (player.attack_potions <= 0) {
         document.getElementById("hit-message").innerText = "Non hai più pozioni!"
         
     } else {
         let temp = player.attack;
-        player.attack *= 3;
+        player.attack += 40;
         attack();
         player.attack = temp;
         player.attack_potions--;
@@ -341,14 +330,14 @@ function attackUp() {
 }
 
 function healthUp() {
-    //Viene restituito il 15% della salute massima
+    //Vengono restituiti 60 punti salute
     if (player.health_potions <= 0) {
         document.getElementById("hit-message").innerText = "Non hai più pozioni!"
     } else {
         if (player.health === player.max_health) {
             document.getElementById("hit-message").innerText = "Non puoi curarti più del massimo!"
         } else {
-            player.health += Math.floor(player.max_health * 0.15);
+            player.health += 60;
             player.health_potions--;
             if (player.health > player.max_health) {
                 player.health = player.max_health;
@@ -461,7 +450,13 @@ function buyShield() {
 }
 
 
-
+function clearMessages() {
+    document.getElementById("hit-message").textContent = "";
+    document.getElementById("miss-message").textContent = "";
+    document.getElementById("loot-message").textContent = "";
+    document.getElementById("broken-weapon-message").textContent = "";
+    document.getElementById("level-up-message").textContent = "";
+}
 
 
 
