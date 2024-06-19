@@ -350,13 +350,15 @@ function healthUp() {
 
 function levelUp() {
     player.level++;
-    player.max_potions++;
     player.xp = 0;
     player.max_xp = Math.floor(player.max_xp * 1.6);
     player.max_health = Math.floor(player.max_health * 1.2);
     player.health = player.max_health;
     player.attack = Math.floor(player.attack * 1.3);
-    document.getElementById("level-up-message").textContent = "Sei salito al livello " + player.level+"!"
+    document.getElementById("level-up-message").textContent = "Sei salito al livello " + player.level + "!"
+    if (player.level % 3 == 0) {
+        player.max_potions++;
+    }
     startPlayer();
 
 }
