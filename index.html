@@ -60,33 +60,57 @@
     <!--Negozio-->
     <div id="container_shop" class="hide">
         <div id="shop">
+            <h3 id="money">Soldi: <span id="money_shop"></span> monete</h3>
             <p id="shop_message"></p>
             <div id="weapon1" class="shop weapon">
-                <h4>Nome: <span id="w1_name"></span></h4>
+                <h4 id="w1_name"></h4>
                 <p>Attacco: <span id="w1_attack"></span></p>
                 <p>Resistenza: <span id="w1_durability"></span></p>
                 <p>Prezzo: <span id="w1_price"></span> monete</p>
                 <button class="button" onclick="buyWeapon1()">Compra</button>
             </div>
-            <hr />
+
             <div id="weapon2" class="shop weapon">
-                <h4>Nome: <span id="w2_name"></span></h4>
+                <h4 id="w2_name"></h4>
                 <p>Attacco: <span id="w2_attack"></span></p>
                 <p>Resistenza: <span id="w2_durability"></span></p>
                 <p>Prezzo: <span id="w2_price"></span> monete</p>
                 <button class="button" onclick="buyWeapon2()">Compra</button>
             </div>
-            <hr />
-            <div id="shield" class="shop shield">
-                <h4>Nome: <span id="shield_name"></span></h4>
-                <p>Difesa: <span id="shield_protection"></span></p>
-                <p>Resistenza: <span id="shield_durability"></span></p>
-                <p>Prezzo: <span id="shield_price"></span> monete</p>
-                <button class="button" onclick="buyShield()">Compra</button>
+
+            <div id="weapon3" class="shop weapon">
+                <h4 id="w3_name"></h4>
+                <p>Attacco: <span id="w3_attack"></span></p>
+                <p>Resistenza: <span id="w3_durability"></span></p>
+                <p>Prezzo: <span id="w3_price"></span> monete</p>
+                <button class="button" onclick="buyWeapon3()">Compra</button>
+            </div>
+
+            <div id="shield1" class="shop shield">
+                <h4 id="shield1_name"></h4>
+                <p>Difesa: <span id="shield1_protection"></span></p>
+                <p>Resistenza: <span id="shield1_durability"></span></p>
+                <p>Prezzo: <span id="shield1_price"></span> monete</p>
+                <button class="button" onclick="buyShield1()">Compra</button>
+            </div>
+
+            <div id="shield2" class="shop shield">
+                <h4 id="shield2_name"></h4>
+                <p>Difesa: <span id="shield2_protection"></span></p>
+                <p>Resistenza: <span id="shield2_durability"></span></p>
+                <p>Prezzo: <span id="shield2_price"></span> monete</p>
+                <button class="button" onclick="buyShield2()">Compra</button>
+            </div>
+
+            <div id="shield3" class="shop shield">
+                <h4 id="shield3_name"></h4>
+                <p>Difesa: <span id="shield3_protection"></span></p>
+                <p>Resistenza: <span id="shield3_durability"></span></p>
+                <p>Prezzo: <span id="shield3_price"></span> monete</p>
+                <button class="button" onclick="buyShield3()">Compra</button>
             </div>
         </div>
-        <h3>Soldi: <span id="money_shop"></span> monete</h3>
-        <button class="button" onclick="closeShop()">Esci dal negozio</button>
+        <button id="close-shop" class="button" onclick="closeShop()">Esci dal negozio</button>
     </div>
     
     <script src="src/script.js"></script>

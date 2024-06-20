@@ -2,7 +2,7 @@
 var player = {
     level: 1,
     max_health: 150,
-    health: 150,
+    health: 1,
     defense:0,
     attack: 10,
     xp: 0,
@@ -17,70 +17,122 @@ var player = {
 }
 
 //armi che possono essere comperate nel negozio
-var weapons = [
-    { name: "Spada di legno", attack: 2, price: 8, durability: 10 },
-    { name: "Spada di ferro", attack: 4, price: 12, durability: 14 },
-    { name: "Spada di legno rinforzata", attack: 2, price: 14, durability: 18 },
-    { name: "Spada di diamante", attack: 15, price: 70, durability: 25 },
-    { name: "Lancia a corto raggio", attack: 6, price: 10, durability: 16 },
-    { name: "Lancia a lungo raggio", attack: 8, price: 14, durability: 16 },
-    { name: "Alabarda", attack: 16, price: 20, durability: 14 },
-    { name: "Pistola aliena", attack: 60, price: 100, durability: 1 },
-    { name: "Pugnale divino", attack: 25, price: 130, durability: 35 },
-    { name: "Guanto del Pugno Fortissimo", attack: 8, price: 25, durability: 30 },
-    { name: "Ascia del Terrore", attack: 18, price: 35, durability: 20 },
-    { name: "Mazza Chiodata", attack: 12, price: 18, durability: 25 },
-    { name: "Spada del Drago", attack: 22, price: 80, durability: 30 },
-    { name: "Scettro Magico", attack: 30, price: 90, durability: 15 },
-    { name: "Frusta Fiammeggiante", attack: 10, price: 22, durability: 20 },
-    { name: "Bastone della Saggezza", attack: 6, price: 12, durability: 50 },
-    { name: "Martello del Destino", attack: 20, price: 40, durability: 22 },
-    { name: "Arco Incantato", attack: 15, price: 28, durability: 18 },
-    { name: "Cucchiaio da Minestrone", attack: 3, price: 5, durability: 40 },
-    { name: "Fionda di legno", attack: 4, price: 3, durability: 50 },
-    { name: "Spada del Dominatore", "attack": 75, "price": 750, "durability": 20 },
-    { name: "Ascia del Tiranno", "attack": 80, "price": 700, "durability": 18 },
-    { name: "Lancia del Sovrano", "attack": 70, "price": 800, "durability": 22 },
-    { name: "Martello del Re", "attack": 85, "price": 950, "durability": 28 },
-    { name: "Pugnale del Signore", "attack": 65, "price": 1000, "durability": 30 },
-    { name: "Arco del Condottiero", "attack": 73, "price": 825, "durability": 23 },
-    { name: "Bastone dell'Imperatore", "attack": 78, "price": 875, "durability": 25 },
-    { name: "Falcione dell'Assalitore", "attack": 83, "price": 900, "durability": 26 },
-    { name: "Mazza del Conquistatore", "attack": 88, "price": 950, "durability": 28 },
-    { name: "Frusta del Dominio", "attack": 68, "price": 925, "durability": 27 },
-    { name: "Spada della Marmotta", "attack": 75, "price": 750, "durability": 20 },
-    { name: "Ascia del Bucaniere", "attack": 80, "price": 700, "durability": 18 }
-
+var weak_weapons = [
+    { name: "Spada di legno", attack: 2, price: 8, durability: 12 },
+    { name: "Spada di ferro", attack: 4, price: 15, durability: 14 },
+    { name: "Lancia a corto raggio", attack: 6, price: 20, durability: 16 },
+    { name: "Bastone della Saggezza", attack: 6, price: 18, durability: 20 },
+    { name: "Fionda di legno", attack: 4, price: 10, durability: 18 },
+    { name: "Spada di legno rinforzata", attack: 2, price: 12, durability: 15 },
+    { name: "Cucchiaio da Minestrone", attack: 3, price: 5, durability: 25 },
+    { name: "Arco Incantato", attack: 15, price: 40, durability: 30 },
+    { name: "Martello del Destino", attack: 10, price: 30, durability: 22 },
+    { name: "Frusta Fiammeggiante", attack: 8, price: 25, durability: 18 },
+    { name: "Guanto del Pugno Fortissimo", attack: 7, price: 22, durability: 28 },
+    { name: "Mazza Chiodata", attack: 12, price: 35, durability: 25 },
+    { name: "Lancia a lungo raggio", attack: 9, price: 28, durability: 20 },
+    { name: "Spada del Drago", attack: 15, price: 50, durability: 35 }
 ];
+
+var medium_weapons = [
+    { name: "Pugnale divino", attack: 25, price: 130, durability: 35 },
+    { name: "Arco del Condottiero", attack: 30, price: 180, durability: 25 },
+    { name: "Pistola aliena", attack: 45, price: 200, durability: 40 },
+    { name: "Spada del Dominatore", attack: 40, price: 160, durability: 30 },
+    { name: "Ascia del Tiranno", attack: 50, price: 190, durability: 28 },
+    { name: "Lancia del Sovrano", attack: 35, price: 150, durability: 32 },
+    { name: "Pugnale del Signore", attack: 48, price: 170, durability: 38 },
+    { name: "Frusta del Dominio", attack: 42, price: 180, durability: 36 },
+    { name: "Spada della Marmotta", attack: 38, price: 175, durability: 33 },
+    { name: "Ascia del Bucaniere", attack: 47, price: 195, durability: 31 },
+    { name: "Martello del Re", attack: 50, price: 200, durability: 40 }
+];
+
+var high_weapons = [
+    { name: "Scettro Magico", attack: 130, price: 680, durability: 45 },
+    { name: "Ascia del Terrore", attack: 150, price: 700, durability: 50 },
+    { name: "Bastone dell'Imperatore", attack: 120, price: 600, durability: 40 },
+    { name: "Falcione dell'Assalitore", attack: 170, price: 750, durability: 55 },
+    { name: "Mazza del Conquistatore", attack: 180, price: 780, durability: 60 },
+    { name: "Frusta del Dominio", attack: 160, price: 720, durability: 52 },
+    { name: "Spada della Marmotta", attack: 175, price: 690, durability: 58 },
+    { name: "Ascia del Bucaniere", attack: 200, price: 800, durability: 65 },
+    { name: "Martello del Re", attack: 85, price: 950, durability: 28 },
+    { name: "Pugnale divino", attack: 80, price: 650, durability: 38 },
+    { name: "Arco del Condottiero", attack: 70, price: 600, durability: 35 },
+    { name: "Lancia del Sovrano", attack: 85, price: 660, durability: 39 },
+    { name: "Pugnale del Signore", attack: 75, price: 630, durability: 36 }
+];
+
 //scudi del negozio
-var shields = [
-    { name: "Scudo dell'autodifesa", protection: 5, durability: 10, price: 10 },
-    { name: "Scudo alieno", protection: 100, durability: 3, price: 100 },
-    { name: "Scudo non newtoniano", protection: 2, durability: 50, price: 28 },
+var weak_shields = [
+    { name: "Scudo di legno", protection: 2, durability: 8, price: 5 },
+    { name: "Scudo di paglia", protection: 3, durability: 7, price: 3 },
+    { name: "Scudo di bambù", protection: 4, durability: 10, price: 7 },
     { name: "Scudo di ferro", protection: 10, durability: 15, price: 15 },
-    { name: "Scudo massiccio", protection: 12, durability: 17, price: 20 },
-    { name: "Scudo di Cristallo", protection: 15, durability: 20, price: 30 },
-    { name: "Scudo Magico", protection: 20, durability: 10, price: 50 },
-    { name: "Scudo del Vento", protection: 8, durability: 25, price: 22 },
-    { name: "Scudo del Tempo", protection: 18, durability: 12, price: 40 },
-    { name: "Scudo di Cartone", protection: 1, durability: 5, price: 2 },
-    { name: "Scudo della Nonna", protection: 4, durability: 30, price: 10 },
-    { name: "Scudo del Cavaliere", protection: 14, durability: 18, price: 25 },
-    { name: "Scudo della Giustizia", protection: 20, durability: 20, price: 35 },
-    { name: "Scudo dell'Orso", protection: 16, durability: 22, price: 32 },
-    { name: "Scudo di Pietra", protection: 12, durability: 28, price: 15 },
-    { name: "Scudo della Fortezza", "protection": 60, "durability": 34, "price": 475 },
-    { name: "Scudo del Guerriero", "protection": 63, "durability": 35, "price": 488 },
-    { name: "Scudo del Paladino", "protection": 65, "durability": 36, "price": 500 },
-    { name: "Scudo del Difensore", "protection": 68, "durability": 38, "price": 512 },
-    { name: "Scudo del Protettore", "protection": 70, "durability": 39, "price": 525 },
-    { name: "Scudo dell'Imperatore", "protection": 73, "durability": 40, "price": 537 },
-    { name: "Scudo del Guardiano", "protection": 75, "durability": 41, "price": 550 },
-    { name: "Scudo dell'Eroe", "protection": 78, "durability": 43, "price": 562 },
-    { name: "Scudo del Campione", "protection": 80, "durability": 44, "price": 575 },
-    { name: "Scudo dell'Invincibile", "protection": 83, "durability": 45, "price": 587 },
-    { name: "Scudo della Tartaruga", "protection": 60, "durability": 34, "price": 475 },
-    { name: "Scudo del Gatto", "protection": 63, "durability": 35, "price": 488 }
+    { name: "Scudo di cuoio", protection: 5, durability: 12, price: 10 },
+    { name: "Scudo di bronzo", protection: 8, durability: 14, price: 20 },
+    { name: "Scudo di rame", protection: 7, durability: 13, price: 18 },
+    { name: "Scudo di osso", protection: 6, durability: 11, price: 12 },
+    { name: "Scudo di pietra", protection: 9, durability: 10, price: 25 },
+    { name: "Scudo di latta", protection: 4, durability: 9, price: 8 },
+    { name: "Scudo dell'eremita", protection: 5, durability: 7, price: 5 },
+    { name: "Scudo del vagabondo", protection: 3, durability: 8, price: 4 },
+    { name: "Scudo di argilla", protection: 6, durability: 10, price: 12 },
+    { name: "Scudo di corda", protection: 4, durability: 6, price: 3 },
+    { name: "Scudo di tela", protection: 2, durability: 5, price: 2 },
+    { name: "Scudo dell'apprendista", protection: 7, durability: 12, price: 15 },
+    { name: "Scudo del combattente", protection: 10, durability: 14, price: 20 },
+    { name: "Scudo del guardiano", protection: 8, durability: 13, price: 18 },
+    { name: "Scudo dell'avventuriero", protection: 9, durability: 11, price: 22 },
+    { name: "Scudo del difensore", protection: 15, durability: 15, price: 30 }
+];
+
+var medium_shields = [
+    { name: "Scudo del Cavaliere", protection: 18, durability: 20, price: 60 },
+    { name: "Scudo del Drago", protection: 25, durability: 25, price: 120 },
+    { name: "Scudo di Acciaio", protection: 20, durability: 22, price: 80 },
+    { name: "Scudo del Gladiatore", protection: 22, durability: 24, price: 100 },
+    { name: "Scudo del Leone", protection: 30, durability: 28, price: 150 },
+    { name: "Scudo di Mithril", protection: 28, durability: 27, price: 140 },
+    { name: "Scudo della Quercia", protection: 17, durability: 21, price: 50 },
+    { name: "Scudo del Guardiano", protection: 19, durability: 23, price: 70 },
+    { name: "Scudo del Berserker", protection: 26, durability: 26, price: 130 },
+    { name: "Scudo del Fabbro", protection: 24, durability: 25, price: 110 },
+    { name: "Scudo del Condottiero", protection: 21, durability: 22, price: 90 },
+    { name: "Scudo del Lupo", protection: 18, durability: 20, price: 60 },
+    { name: "Scudo del Gigante", protection: 29, durability: 28, price: 145 },
+    { name: "Scudo del Crociato", protection: 27, durability: 27, price: 135 },
+    { name: "Scudo della Fenice", protection: 23, durability: 24, price: 105 },
+    { name: "Scudo del Titano", protection: 30, durability: 29, price: 150 },
+    { name: "Scudo dell'Orso", protection: 20, durability: 21, price: 85 },
+    { name: "Scudo del Guardiano Notturno", protection: 16, durability: 20, price: 45 },
+    { name: "Scudo del Mago", protection: 19, durability: 22, price: 75 },
+    { name: "Scudo del Paladino", protection: 28, durability: 27, price: 140 }
+];
+
+var high_shields = [
+    { name: "Scudo del Destino", protection: 35, durability: 25, price: 200 },
+    { name: "Scudo del Re", protection: 50, durability: 30, price: 350 },
+    { name: "Scudo della Fenice", protection: 45, durability: 28, price: 300 },
+    { name: "Scudo del Titano", protection: 60, durability: 35, price: 700 },
+    { name: "Scudo del Drago Ancestrale", protection: 55, durability: 32, price: 450 },
+    { name: "Scudo del Legionario", protection: 40, durability: 27, price: 250 },
+    { name: "Scudo dell'Imperatore", protection: 52, durability: 34, price: 600 },
+    { name: "Scudo del Guardiano Supremo", protection: 48, durability: 29, price: 400 },
+    { name: "Scudo dell'Eroe Leggendario", protection: 60, durability: 35, price: 650 },
+    { name: "Scudo della Tempesta", protection: 42, durability: 26, price: 280 },
+    { name: "Scudo della Giustizia", protection: 50, durability: 30, price: 350 },
+    { name: "Scudo del Conquistatore", protection: 55, durability: 33, price: 500 },
+    { name: "Scudo della Luce", protection: 45, durability: 28, price: 300 },
+    { name: "Scudo del Campione", protection: 38, durability: 24, price: 220 },
+    { name: "Scudo della Fortezza", protection: 60, durability: 35, price: 700 },
+    { name: "Scudo dell'Invincibile", protection: 57, durability: 34, price: 550 },
+    { name: "Scudo del Gladiatore", protection: 40, durability: 26, price: 250 },
+    { name: "Scudo del Leone Dorato", protection: 52, durability: 31, price: 500 },
+    { name: "Scudo del Coraggio", protection: 36, durability: 25, price: 200 },
+    { name: "Scudo della Virtù", protection: 49, durability: 30, price: 350 },
+    { name: "Scudo dell'Infinito", protection: 100, durability: 3, price: 1000 }
 ];
 
 //variabile globale che contiene il nome del mostro che uccide il protagonista
@@ -105,7 +157,7 @@ function startGame() {
     document.getElementById("introduction").classList.add("hide");
     document.getElementById("introduction").classList.remove("show");
     document.getElementById("game-screen").classList.add("show");
-    document.getElementById("game-screen").classList.remove("hide_screen");
+    document.getElementById("game-screen").classList.remove("hide");
 
 
 }
@@ -240,7 +292,7 @@ function restart() {
         name: new_winner,
         level: 1,
         max_health: 150,
-        health: 150,
+        health: 1,
         defense: 0,
         attack: 10,
         xp: 0,
@@ -253,9 +305,9 @@ function restart() {
         extra_attack: 0,
         shield_durability: 0
     }
-    document.getElementById("death-screen").innerHTML = "";
-    document.getElementById("player").style.display = "inherit";
-    document.getElementById("enemy").style.display = "inherit";
+    document.getElementById("death-screen").remove();
+    document.getElementById("player").style.display = "inline-block";
+    document.getElementById("enemy").style.display = "inline-block";
     document.getElementById("game-screen").style.backgroundColor = "none";
     document.getElementById("game-screen").style.backgroundColor = "rgba(255,255,255,0.6)";
     startPlayer();
@@ -365,16 +417,19 @@ function levelUp() {
 }
 
 function shop() {
-    //Lo schermo di gioco si sposta a destra e quello del negozio entra dall'alto
-    document.getElementById("game-screen").classList.add("hide_screen");
+    //Sparisce lo schermo di gioco ed entra quello del negozio
+    document.getElementById("game-screen").classList.add("hide");
     document.getElementById("game-screen").classList.remove("show");
     document.getElementById("container_shop").classList.add("show");
     document.getElementById("container_shop").classList.remove("hide");
 
-    //Generazione di armi e scudi andando a pescare casualmnete dalle relative liste
-    let weapon1 = weapons[Math.floor(Math.random() * weapons.length)];
-    let weapon2 = weapons[Math.floor(Math.random() * weapons.length)];
-    let shield = shields[Math.floor(Math.random() * shields.length)];
+    //Generazione di armi e scudi andando a pescare casualmnete dalle relative liste 
+    let weapon1 = weak_weapons[Math.floor(Math.random() * weak_weapons.length)];
+    let weapon2 = medium_weapons[Math.floor(Math.random() * medium_weapons.length)];
+    let weapon3 = high_weapons[Math.floor(Math.random() * high_weapons.length)];
+    let shield1 = weak_shields[Math.floor(Math.random() * weak_shields.length)];
+    let shield2 = medium_shields[Math.floor(Math.random() * medium_shields.length)];
+    let shield3 = high_shields[Math.floor(Math.random() * high_shields.length)];
     document.getElementById("w1_name").textContent = weapon1.name;
     document.getElementById("w1_attack").textContent = weapon1.attack;
     document.getElementById("w1_durability").textContent = weapon1.durability;
@@ -385,17 +440,32 @@ function shop() {
     document.getElementById("w2_durability").textContent = weapon2.durability;
     document.getElementById("w2_price").textContent = weapon2.price;
 
-    document.getElementById("shield_name").textContent = shield.name;
-    document.getElementById("shield_protection").textContent = shield.protection;
-    document.getElementById("shield_durability").textContent = shield.durability;
-    document.getElementById("shield_price").textContent = shield.price;
+    document.getElementById("w3_name").textContent = weapon3.name;
+    document.getElementById("w3_attack").textContent = weapon3.attack;
+    document.getElementById("w3_durability").textContent = weapon3.durability;
+    document.getElementById("w3_price").textContent = weapon3.price;
+
+    document.getElementById("shield1_name").textContent = shield1.name;
+    document.getElementById("shield1_protection").textContent = shield1.protection;
+    document.getElementById("shield1_durability").textContent = shield1.durability;
+    document.getElementById("shield1_price").textContent = shield1.price;
+
+    document.getElementById("shield2_name").textContent = shield2.name;
+    document.getElementById("shield2_protection").textContent = shield2.protection;
+    document.getElementById("shield2_durability").textContent = shield2.durability;
+    document.getElementById("shield2_price").textContent = shield2.price;
+
+    document.getElementById("shield3_name").textContent = shield3.name;
+    document.getElementById("shield3_protection").textContent = shield3.protection;
+    document.getElementById("shield3_durability").textContent = shield3.durability;
+    document.getElementById("shield3_price").textContent = shield3.price;
 
     document.getElementById("money_shop").textContent = player.money;
 }
 
 function closeShop() {
     document.getElementById("game-screen").classList.add("show");
-    document.getElementById("game-screen").classList.remove("hide_screen");
+    document.getElementById("game-screen").classList.remove("hide");
     document.getElementById("container_shop").classList.add("hide");
     document.getElementById("container_shop").classList.remove("show");
     document.getElementById("shop_message").textContent = "";
@@ -413,6 +483,7 @@ function buyWeapon1() {
         document.getElementById("money_shop").textContent = player.money;
         document.getElementById("weapon1").classList.add("bought");
         document.getElementById("weapon2").classList.remove("bought");
+        document.getElementById("weapon3").classList.remove("bought");
         startPlayer();
     } else {
         document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
@@ -430,6 +501,7 @@ function buyWeapon2() {
         document.getElementById("money_shop").textContent = player.money;
         document.getElementById("weapon2").classList.add("bought");
         document.getElementById("weapon1").classList.remove("bought");
+        document.getElementById("weapon3").classList.remove("bought");
         startPlayer();
     } else {
         document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
@@ -437,20 +509,72 @@ function buyWeapon2() {
     }
 }
 
-function buyShield() {
-    if (player.money >= parseInt(document.getElementById("shield_price").textContent)) {
+function buyWeapon3() {
+    if (player.money >= parseInt(document.getElementById("w3_price").textContent)) {
         document.getElementById("shop_message").textContent = "";
-        player.defense = parseInt(document.getElementById("shield_protection").textContent);
-        player.shield_durability = parseInt(document.getElementById("shield_durability").textContent);
-        player.money -= parseInt(document.getElementById("shield_price").textContent);
+        player.extra_attack = parseInt(document.getElementById("w3_attack").textContent);
+        player.weapon_durability = parseInt(document.getElementById("w3_durability").textContent);
+        player.money -= parseInt(document.getElementById("w3_price").textContent);
         document.getElementById("money_shop").textContent = player.money;
-        document.getElementById("shield").classList.add("bought");
+        document.getElementById("weapon3").classList.add("bought");
+        document.getElementById("weapon1").classList.remove("bought");
+        document.getElementById("weapon2").classList.remove("bought");
         startPlayer();
     } else {
         document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
 
     }
 }
+
+function buyShield1() {
+    if (player.money >= parseInt(document.getElementById("shield1_price").textContent)) {
+        document.getElementById("shop_message").textContent = "";
+        player.defense = parseInt(document.getElementById("shield1_protection").textContent);
+        player.shield1_durability = parseInt(document.getElementById("shield1_durability").textContent);
+        player.money -= parseInt(document.getElementById("shield1_price").textContent);
+        document.getElementById("money_shop").textContent = player.money;
+        document.getElementById("shield1").classList.add("bought");
+        document.getElementById("shield2").classList.remove("bought");
+        document.getElementById("shield3").classList.remove("bought");        startPlayer();
+    } else {
+        document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
+
+    }
+}
+
+function buyShield2() {
+    if (player.money >= parseInt(document.getElementById("shield2_price").textContent)) {
+        document.getElementById("shop_message").textContent = "";
+        player.defense = parseInt(document.getElementById("shield2_protection").textContent);
+        player.shield2_durability = parseInt(document.getElementById("shield2_durability").textContent);
+        player.money -= parseInt(document.getElementById("shield2_price").textContent);
+        document.getElementById("money_shop").textContent = player.money;
+        document.getElementById("shield2").classList.add("bought");
+        document.getElementById("shield1").classList.remove("bought");
+        document.getElementById("shield3").classList.remove("bought");        startPlayer();
+    } else {
+        document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
+
+    }
+}
+
+function buyShield3() {
+    if (player.money >= parseInt(document.getElementById("shield3_price").textContent)) {
+        document.getElementById("shop_message").textContent = "";
+        player.defense = parseInt(document.getElementById("shield3_protection").textContent);
+        player.shield3_durability = parseInt(document.getElementById("shield3_durability").textContent);
+        player.money -= parseInt(document.getElementById("shield3_price").textContent);
+        document.getElementById("money_shop").textContent = player.money;
+        document.getElementById("shield3").classList.add("bought");
+        document.getElementById("shield1").classList.remove("bought");
+        document.getElementById("shield2").classList.remove("bought");        startPlayer();
+    } else {
+        document.getElementById("shop_message").textContent = "Non hai abbastanza soldi!";
+
+    }
+}
+
+
 
 
 function clearMessages() {
