@@ -8,7 +8,7 @@ var player = {
     xp: 0,
     max_xp:50,
     money: 0,
-    max_money:100,
+    max_money:50,
     attack_potions: 3,
     health_potions: 3,
     max_potions:5,
@@ -422,6 +422,7 @@ function healthUp() {
 function levelUp() {
     player.level++;
     player.xp = 0;
+    player.max_money += 40;
     player.max_xp = Math.floor(player.max_xp * 1.6);
     player.max_health = Math.floor(player.max_health * 1.05);
     player.health = player.max_health;
@@ -429,7 +430,7 @@ function levelUp() {
     document.getElementById("level-up-message").textContent = "Sei salito al livello " + player.level + "!"
     if (player.level % 3 == 0) {
         player.max_potions++;
-        player.max_money += 50;    }
+            }
     startPlayer();
 }
 
@@ -488,7 +489,10 @@ function closeShop() {
     document.getElementById("shop_message").textContent = "";
     document.getElementById("weapon1").classList.remove("bought");
     document.getElementById("weapon2").classList.remove("bought");
-    document.getElementById("shield").classList.remove("bought");
+    document.getElementById("weapon3").classList.remove("bought");
+    document.getElementById("shield1").classList.remove("bought");
+    document.getElementById("shield2").classList.remove("bought");
+    document.getElementById("shield3").classList.remove("bought");
 }
 
 function buyWeapon1() {
