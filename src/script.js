@@ -73,7 +73,8 @@ var high_weapons = [
     { name: "Arco del re", attack: 74, price: 270, durability: 13 },
     { name: "Alabarda da guerra", attack: 68, price: 240, durability: 15 },
     { name: "MorningStar", attack: 65, price: 230, durability: 16 },
-    { name: "Morte Nera", attack: 100, price: 300, durability: 1 }
+    { name: "Morte Nera", attack: 100, price: 100, durability: 1 },
+    { name: "Nice!", attack: 69, price: 6900, durability: 69 },
 ];
 
 //scudi del negozio
@@ -428,9 +429,8 @@ function levelUp() {
     document.getElementById("level-up-message").textContent = "Sei salito al livello " + player.level + "!"
     if (player.level % 3 == 0) {
         player.max_potions++;
-        player.max_money += 50;
+        player.max_money += 50;    }
     startPlayer();
-
 }
 
 function shop() {
@@ -601,7 +601,3 @@ function clearMessages() {
     document.getElementById("broken-weapon-message").textContent = "";
     document.getElementById("level-up-message").textContent = "";
 }
-
-
-
-
