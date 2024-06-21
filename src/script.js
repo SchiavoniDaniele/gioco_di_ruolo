@@ -8,7 +8,7 @@ var player = {
     xp: 0,
     max_xp:50,
     money: 0,
-    max_money:200,
+    max_money:100,
     attack_potions: 3,
     health_potions: 3,
     max_potions:5,
@@ -19,50 +19,61 @@ var player = {
 
 //armi che possono essere comperate nel negozio
 var weak_weapons = [
-    { name: "Spada di legno", attack: 2, price: 8, durability: 12 },
-    { name: "Spada di ferro", attack: 4, price: 15, durability: 14 },
-    { name: "Lancia a corto raggio", attack: 6, price: 20, durability: 16 },
-    { name: "Bastone della Saggezza", attack: 6, price: 18, durability: 20 },
-    { name: "Fionda di legno", attack: 4, price: 10, durability: 18 },
-    { name: "Spada di legno rinforzata", attack: 2, price: 12, durability: 15 },
-    { name: "Cucchiaio da Minestrone", attack: 3, price: 5, durability: 25 },
-    { name: "Arco Incantato", attack: 15, price: 40, durability: 30 },
-    { name: "Martello del Destino", attack: 10, price: 30, durability: 22 },
-    { name: "Frusta Fiammeggiante", attack: 8, price: 25, durability: 18 },
-    { name: "Guanto del Pugno Fortissimo", attack: 7, price: 22, durability: 28 },
-    { name: "Mazza Chiodata", attack: 12, price: 35, durability: 25 },
-    { name: "Lancia a lungo raggio", attack: 9, price: 28, durability: 20 },
-    { name: "Spada del Drago", attack: 15, price: 50, durability: 35 }
+    { name: "Spada di legno", attack: 2, price: 10, durability: 6 },
+    { name: "Spada di legno rinforzato", attack: 4, price: 12, durability: 8 },
+    { name: "Spada arrugginita", attack: 6, price: 13, durability: 5 },
+    { name: "Lancia giocattolo", attack: 2, price: 8, durability: 5 },
+    { name: "Martello di gomma", attack: 3, price: 9, durability: 11 },
+    { name: "Spada di plastica", attack: 1, price: 5, durability: 11 },
+    { name: "Frusta", attack: 5, price: 11, durability: 13 },
+    { name: "Pistola a piombini", attack: 8, price: 14, durability: 6 },
+    { name: "Frisbee", attack: 3, price: 4, durability: 1 },
+    { name: "Gavettone ghiacciato", attack: 8, price: 10, durability: 1 },
+    { name: "Pistola ad acqua santa", attack: 10, price: 16, durability: 8 },
+    { name: "Spada di cactus", attack: 10, price: 9, durability: 2 },
+    { name: "Asciugamano bagnato", attack: 10, price: 16, durability: 8 },
+    { name: "Shuriken", attack: 10, price: 8, durability: 1 },
+    { name: "Frusta resistente", attack: 5, price: 14, durability: 20 },
+    { name: "Bacchetta magica", attack: 9, price: 17, durability: 20 },
+    { name: "Cucchiarella di legno", attack: 10, price: 15, durability: 6 },
+    { name: "Alveare", attack: 9, price: 10, durability: 2 },
+    { name: "Guanto del pugno fortissimo", attack: 12, price: 20, durability: 20 },
+    { name: "Forza dell'amicizia", attack: 15, price: 25, durability: 20 }
 ];
+
 
 var medium_weapons = [
-    { name: "Pugnale divino", attack: 25, price: 130, durability: 35 },
-    { name: "Arco del Condottiero", attack: 30, price: 180, durability: 25 },
-    { name: "Pistola aliena", attack: 45, price: 200, durability: 40 },
-    { name: "Spada del Dominatore", attack: 40, price: 160, durability: 30 },
-    { name: "Ascia del Tiranno", attack: 50, price: 190, durability: 28 },
-    { name: "Lancia del Sovrano", attack: 35, price: 150, durability: 32 },
-    { name: "Pugnale del Signore", attack: 48, price: 170, durability: 38 },
-    { name: "Frusta del Dominio", attack: 42, price: 180, durability: 36 },
-    { name: "Spada della Marmotta", attack: 38, price: 175, durability: 33 },
-    { name: "Ascia del Bucaniere", attack: 47, price: 195, durability: 31 },
-    { name: "Martello del Re", attack: 50, price: 200, durability: 40 }
+    { name: "Spada di ferro", attack: 30, price: 55, durability: 10 },
+    { name: "Mazza chiodata", attack: 30, price: 57, durability: 12 },
+    { name: "Frusta spinata", attack: 33, price: 60, durability: 11 },
+    { name: "Pugnale da battaglia", attack: 26, price: 53, durability: 13 },
+    { name: "Fucile da caccia", attack: 40, price: 50, durability: 2 },
+    { name: "Coltello da lancio", attack: 50, price: 45, durability: 1 },
+    { name: "Pistola a gatto imburrato", attack: 40, price: 51, durability: 3 },
+    { name: "Maglio del destino", attack: 32, price: 63, durability: 15 },
+    { name: "Lego sotto i piedi", attack: 48, price: 47, durability: 1 },
+    { name: "Due topi con la rabbia", attack: 34, price: 50, durability: 2 },
+    { name: "Taser", attack: 20, price: 35, durability: 5 },
+    { name: "Libro noiosissimo", attack: 20, price: 39, durability: 7 },
+    { name: "Minipimer", attack: 25, price: 50, durability: 10 },
+    { name: "Bastone dello stregone", attack: 24, price: 65, durability: 20 },
+    { name: "Lancia a lungo raggio", attack: 23, price: 58, durability: 15 }
 ];
 
+
 var high_weapons = [
-    { name: "Scettro Magico", attack: 130, price: 680, durability: 45 },
-    { name: "Ascia del Terrore", attack: 150, price: 700, durability: 50 },
-    { name: "Bastone dell'Imperatore", attack: 120, price: 600, durability: 40 },
-    { name: "Falcione dell'Assalitore", attack: 170, price: 750, durability: 55 },
-    { name: "Mazza del Conquistatore", attack: 180, price: 780, durability: 60 },
-    { name: "Frusta del Dominio", attack: 160, price: 720, durability: 52 },
-    { name: "Spada della Marmotta", attack: 175, price: 690, durability: 58 },
-    { name: "Ascia del Bucaniere", attack: 200, price: 800, durability: 65 },
-    { name: "Martello del Re", attack: 85, price: 950, durability: 28 },
-    { name: "Pugnale divino", attack: 80, price: 650, durability: 38 },
-    { name: "Arco del Condottiero", attack: 70, price: 600, durability: 35 },
-    { name: "Lancia del Sovrano", attack: 85, price: 660, durability: 39 },
-    { name: "Pugnale del Signore", attack: 75, price: 630, durability: 36 }
+    { name: "Bastone dei desideri", attack: 50, price: 150, durability: 20 },
+    { name: "Forza dell'amore", attack: 80, price: 240, durability: 6 },
+    { name: "Lancio della ciabatta", attack: 70, price: 180, durability: 2 },
+    { name: "Pugno laser", attack: 65, price: 175, durability: 5 },
+    { name: "Pistola dubstep", attack: 75, price: 220, durability: 6 },
+    { name: "Granata", attack: 80, price: 100, durability: 1 },
+    { name: "Pozione dei crampi allo stomaco", attack: 63, price: 170, durability: 5 },
+    { name: "Spada di diamante", attack: 72, price: 290, durability: 18 },
+    { name: "Arco del re", attack: 74, price: 270, durability: 13 },
+    { name: "Alabarda da guerra", attack: 68, price: 240, durability: 15 },
+    { name: "MorningStar", attack: 65, price: 230, durability: 16 },
+    { name: "Morte Nera", attack: 100, price: 300, durability: 1 }
 ];
 
 //scudi del negozio
@@ -329,9 +340,10 @@ function getLoot() {
             if ((player.money + money) > player.max_money) {
                 loot = "La tua borsa delle monete è piena! Hai ottenuto "
                 player.money = player.max_money;
+            } else {
+                loot = "Hai ottenuto " + money + " monete e ";
+                player.money += money;
             }
-            loot = "Hai ottenuto " + money + " monete e ";
-            player.money += money;
             break;
         case 2:
             
@@ -410,13 +422,13 @@ function levelUp() {
     player.level++;
     player.xp = 0;
     player.max_xp = Math.floor(player.max_xp * 1.6);
-    player.max_health = Math.floor(player.max_health * 1.2);
+    player.max_health = Math.floor(player.max_health * 1.05);
     player.health = player.max_health;
     player.attack = Math.floor(player.attack * 1.3);
     document.getElementById("level-up-message").textContent = "Sei salito al livello " + player.level + "!"
     if (player.level % 3 == 0) {
         player.max_potions++;
-    }
+        player.max_money += 50;
     startPlayer();
 
 }
