@@ -8,6 +8,7 @@ var player = {
     xp: 0,
     max_xp:50,
     money: 0,
+    max_money:200,
     attack_potions: 3,
     health_potions: 3,
     max_potions:5,
@@ -171,7 +172,7 @@ function startPlayer() {
     document.getElementById("player-health").textContent = player.health + "/" + player.max_health;
     document.getElementById("player-attack").textContent = player.attack + player.extra_attack;
     document.getElementById("player-xp").textContent = player.xp + "/" + player.max_xp;
-    document.getElementById("player-money").textContent = player.money;
+    document.getElementById("player-money").textContent = player.money + "/" + player.max_money;
     document.getElementById("player-attack-potion").textContent = player.attack_potions + "/" + player.max_potions;
     document.getElementById("player-health-potion").textContent = player.health_potions + "/" + player.max_potions;
     if (player.shield_durability != 0) {//La resistenza di arma e scudo solo se equipaggiati
@@ -317,14 +318,18 @@ function restart() {
 function getLoot() {
 //una possibilità su due di ottenere soldi, una su quattro di ottenere pozioni di attacco e una su quattro di ottenere pozioni di salute
     let random = Math.floor(Math.random() * 4);
-    let potions = Math.floor(Math.random() * (4 * player.level) + 1);
-    let money = Math.floor(Math.random() * (10 * (player.level * 2)) + 1);
+    let potions = Math.floor(Math.random() * 2 + 1);
+    let money = Math.floor(Math.random() * (10 * player.level) + 1);
     //if (potions > (player.level + 7)) {//Per evitare che, andando avanti nel gioco, si ottengano troppe pozioni
     //    potions = (player.level + 7);
     //}
     switch (random) {
         case 0:
         case 1:
+            if ((player.money + money) > player.max_money) {
+                loot = "La tua borsa delle monete è piena! Hai ottenuto "
+                player.money = player.max_money;
+            }
             loot = "Hai ottenuto " + money + " monete e ";
             player.money += money;
             break;
