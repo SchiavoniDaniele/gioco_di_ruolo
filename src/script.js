@@ -2,7 +2,7 @@
 var player = {
     level: 1,
     max_health: 150,
-    health: 1,
+    health: 150,
     defense:0,
     attack: 10,
     xp: 0,
